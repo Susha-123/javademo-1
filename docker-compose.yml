@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  mysqlservice:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    container_name: mysql-container
+    #network_mode: host
+    #hostname: localhost
+    environment:
+      MYSQL_ROOT_PASSWORD: Global@145#
+      MYSQL_DATABASE: AuthenticationDB
+      MYSQL_USERNAME: root
+      #     MYSQL_PASSWORD: Global@145#
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  web:
+    container_name: web-container
+    build: .
+    #hostname: localhost
+    #network_mode: host
+    ports:
+      - 8088:80
+    depends_on:
+      - mysqlservice
+    restart: always
